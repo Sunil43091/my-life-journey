@@ -118,18 +118,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
 function getNextBirthday() {
     const now = new Date();
 
     let birthday = new Date(
         now.getFullYear(),
-        7, // August (0-based index)
-        2, // Date
+        7, // August (0 based index)
+        2,
         0, 0, 0
     );
 
-    // Agar is saal birthday nikal gaya hai to next year ka le lo
+    // Agar birthday nikal gaya hai to next year
     if (now > birthday) {
         birthday = new Date(
             now.getFullYear() + 1,
@@ -159,24 +158,24 @@ function updateCountdown() {
     document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
 }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-
-const targetDateElement = document.querySelector(".target-date");
-
 function updateTargetDate() {
-    const birthday = getNextBirthday();
+    const birthYear = 1995;
+    const nextBirthday = getNextBirthday();
 
-    targetDateElement.innerHTML = `
+    document.querySelector(".target-date").innerHTML = `
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="4" width="18" height="18" rx="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
-        02 August ${birthday.getFullYear()}
+        Born on 02 August ${birthYear} | Next Birthday: 02 August ${nextBirthday.getFullYear()}
     `;
 }
 
+updateCountdown();
 updateTargetDate();
+
+setInterval(updateCountdown, 1000);
+
+
